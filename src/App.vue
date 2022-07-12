@@ -1,28 +1,57 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <headerComponent 
+    @sendText="searchText"
+    />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import headerComponent from './components/headerComponent.vue'
+import axios from "axios"
 
 export default {
   name: 'App',
+  data(){
+    return{
+      info: [],
+      textToSearch: "",
+    }
+  },
   components: {
-    HelloWorld
+    headerComponent,
+  },
+  mounted(){
+    this.searchAllFilms();  
+  },
+  methods: {    
+    searchAllFilms(){
+      
+      if(this.textToSearch !== ""){
+        axios.get(`https://api.themoviedb.org/3/search/movie?api_key=5815a78aa9854a6ec9c6ecbc2b07ad60&query=${this.textToSearch}&language=it-IT`)
+        .then(response => {
+        
+          this.info = response.data.results;
+          return console.log(this.info)
+        })
+      } else {
+        axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=5815a78aa9854a6ec9c6ecbc2b07ad60&language=it-IT&page=1`)
+        .then(response => {
+          
+          this.info = response.data.results;
+          return console.log(this.info)
+        })
+      }     
+    },
+    searchText(text){
+      this.textToSearch = text;
+      console.log(text);
+      this.searchAllFilms(); 
+    }
   }
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
