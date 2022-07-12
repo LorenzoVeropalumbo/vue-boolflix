@@ -2,6 +2,14 @@
   <header>
     <div>
       <h1>boolflix</h1>
+      <ul class="nav">
+        <li>Home</li>
+        <li>Serie TV</li>
+        <li>Film</li>
+        <li>Original</li>
+        <li>Aggiunti di recente</li>
+        <li>La mia lista</li>
+      </ul>
     </div>
     <div class="inputs"> 
       <input type="text" placeholder="cerca" v-model="searchText">
@@ -33,16 +41,39 @@ export default {
 <style lang="scss" scoped>
   header{
     height: 70px;
-    background-color: black;
+    background-color: #222;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    h1{
-      text-transform: uppercase;
-      font-size: 25px;
-      padding: 0 20px;
-      color: red;
+    div{
+      
+      display: flex;
+      
+      h1{
+        text-transform: uppercase;
+        font-size: 30px;
+        padding: 0 20px;
+        color: red;  
+        margin: 0;
+      }
+
+      .nav{
+        display: flex;
+        list-style-type: none;
+        align-items: center;
+
+        li{
+          padding: 0 13px;
+          
+          &:hover{
+            font-weight: bolder;
+            cursor: pointer;
+          }
+        }
+        
+      }
     }
+    
 
     .inputs{
       

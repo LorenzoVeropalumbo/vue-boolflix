@@ -76,6 +76,6 @@ export default {
   @import "src/style/common.scss";
   #app{
     width: 100%;
-    background-color: grey;
+    background-color: #222;
   }
 </style>

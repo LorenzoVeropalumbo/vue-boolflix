@@ -16,7 +16,7 @@
         <span>voto: </span>
         <span><i class="fa-solid fa-star star" v-for="n in getStars(Film.vote_average)" :key="n"></i></span>
       </div>
-      <div>
+      <div v-if="Film.overview !== '' ">
         <span>overview: </span>
         <div class="scroll">
           <span class="overview-text">{{ Film.overview }}</span>
@@ -72,6 +72,7 @@ export default {
  
 <style lang="scss" scoped>
   .film{
+    
     border: 1px solid white;
     height: 100%;
     position: relative;
@@ -114,6 +115,7 @@ export default {
       
       .star{
         color:yellow;
+        padding: 0 2px;
       }
 
       .flags{
