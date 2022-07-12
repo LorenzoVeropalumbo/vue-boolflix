@@ -4,25 +4,32 @@
       <div class="col" v-for="film in filmArray" :key="film.id">
         <FilmComponent :Film="film"/>
       </div>
+      <div class="col" v-for="serie in serieArray" :key="serie.id">
+        <SerieComponent :Film="serie"/>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-  import FilmComponent from './FilmComponent.vue'
+  import FilmComponent from './FilmComponent.vue';
+  import SerieComponent from './SerieComponent.vue';
+
   export default {
-    name: "FilmsMainComponent",
+    name: "BoolflixComponent",
     components: {
       FilmComponent,
+      SerieComponent,
     },
     props:{
       filmArray: Array,
+      serieArray: Array,
     }
   }
 </script>
 
 <style lang="scss" scoped>
   .container{
-    padding-top: 60px;
+    padding: 60px 0;
   }
 </style>
