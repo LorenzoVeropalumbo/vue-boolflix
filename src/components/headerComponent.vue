@@ -2,7 +2,7 @@
   <header>
     <div>
       <!-- Logo di Boolflix -->
-      <h1>boolflix</h1>
+      <img src="../assets/boolflixlogo.png" alt="">
       <!-- NAV menù -->
       <ul class="nav">
         <li>Home</li>
@@ -51,16 +51,13 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
     div{
-      
+      margin-left: 10px;  
       display: flex;
       
-      h1{
-        text-transform: uppercase;
-        font-size: 40px;
-        padding: 0 20px;
-        color: red;  
-        margin: 0;
+      img{
+        width: 160px;
       }
 
       .nav{

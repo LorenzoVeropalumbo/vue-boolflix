@@ -3,6 +3,9 @@
   <div class="serie">
     <!-- Card Image -->
     <img class="film_poster" :src="getImg(Serie.poster_path)" alt="">
+    <div class="wrapper">
+      <div class="dd" v-for="(singlefilm,index) in Serie.genre_ids" :key="index">{{ getGenre(singlefilm) }}</div>
+    </div>
     <!-- Hover effect on the card -->
     <div class="hoverEffect">
       <div>
@@ -42,11 +45,13 @@ export default {
   name: "serieComponent",
   props:{
    Serie:Object,
+   GenreSerieArray:Array,
   },
   data(){
     return{
       castArray: [],
       namesCast: "",
+      genreArray: "",
     }
   },
   mounted(){
@@ -113,12 +118,21 @@ export default {
           } 
         }
         //se la chiamata non va buon fine scrivo no cast e cancello la console          
-      }).catch(() => {
-        
+      }).catch(() => {    
         console.clear();
         this.namesCast = "no cast";
       })    
       return this.namesCast;         
+    },
+    getGenre(Film){ 
+      
+      for (let index = 0; index < this.GenreSerieArray.length; index++) {
+        if(this.GenreSerieArray[index].id === Film){
+          this.genreArray = this.GenreSerieArray[index].name;
+        }    
+      }
+      console.clear();
+      return this.genreArray;
     }
   }
 }
@@ -126,10 +140,12 @@ export default {
  
 <style lang="scss" scoped>
   .serie{
-    height: 100%;
-    position: relative;
-    margin: 0 5px;
+    height: 500px;
+    width: 340px;
+    overflow: hidden;
+    /* margin: 0 5px; */
     cursor: pointer;
+    position: relative;
 
     .hoverEffect{
       position: absolute;
@@ -155,12 +171,24 @@ export default {
         }
         
         .scroll{
-          height: 200px;
+          height: 220px;
           width: 100%;  
           overflow-y: auto;
           
+          // Scrollbar Modification
           &::-webkit-scrollbar {
-            display: none;
+            width: 10px;
+            height: 22px;
+          }
+
+          &::-webkit-scrollbar-thumb:hover {
+            background-color: grey;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background-color: #222;
+            border-radius: 20px;
+            border: 6px solid transparent;
           }
 
           .overview-text{
@@ -185,6 +213,32 @@ export default {
         display: inline;
         margin: 5px 0;
       }
+    }
+
+    .wrapper{
+      position: absolute;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      color: black;
+      z-index: 50;
+      bottom: 0px;    
+      right: -5px;
+      text-align: center;
+      line-height: 20px;
+      width: 100%;
+      margin-bottom: 5px;
+
+      .dd{
+        margin: 2px 2px;
+        padding: 5px;
+        background-color: white;
+        box-shadow: 5px 10px 8px #888888;
+      }
+    }
+
+    &:hover .wrapper{
+      opacity: 0;
     }
     
     &:hover .hoverEffect{

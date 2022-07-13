@@ -2,21 +2,21 @@
   <!-- Cards Container -->
   <div class="container-fluid">
     <!-- Section Name -->
-    <div class="sectionTitle">Film</div>
+    <div class="sectionTitle">Film più votati su Boolflix</div>
     <!-- Horizontal Scroller -->
-    <div class="row row-cols-5 py-1 horizonal-scroll">     
+    <div class="row py-1 horizonal-scroll">     
       <div class="col" v-for="film in filmArray" :key="film.id">
-        <FilmComponent :Film="film" :GenreSerieArray="GenreSerieArray"/>
+        <FilmComponent :Film="film" :GenreFilmArray="GenreFilmArray"/>
       </div>
     </div>
     <!-- Section Name -->
-    <div class="sectionTitle">Serie TV</div>
+    <div class="sectionTitle">Serie TV più votate su Boolflix</div>
     <!-- Horizontal Scroller -->
-    <div class="row row-cols-5 py-1 horizonal-scroll">
+    <div class="row py-1 horizonal-scroll">
       <div class="col" 
       v-for="serie in serieArray" 
       :key="serie.id">
-        <serieComponent :Serie="serie" :textToSearch="textToSearch"/>
+        <serieComponent :Serie="serie" :GenreSerieArray="GenreSerieArray"/>
       </div>
     </div>
   </div>
@@ -56,18 +56,21 @@
       font-weight: 600;
     }
 
+    .col{
+      padding-right: 0;
+    }
+
     // setting horizontal scrolling
     .horizonal-scroll{
       height: calc(60% - 40px);
       flex-wrap: nowrap;
-      overflow-x: auto;
-      overflow-y: hidden;
+      overflow: auto;
       flex-shrink: 0;
       
       // Scrollbar Modification
       &::-webkit-scrollbar {
         width: 10px;
-        height: 22px;
+        height: 12px;
       }
 
       &::-webkit-scrollbar-thumb:hover {
@@ -78,7 +81,6 @@
         background-color: #222;
         border-radius: 20px;
         border: 6px solid transparent;
-        background-clip: content-box;
       }
     }
   }

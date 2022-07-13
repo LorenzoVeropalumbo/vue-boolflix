@@ -4,10 +4,8 @@
     <headerComponent 
     @sendText="searchText"
     />
-
     <!-- Main -->
     <main>
-
       <!-- Compent principale del main per stampare a cui passo tutti i dati -->
       <BoolflixComponent 
       :filmArray="this.filmArray" 
@@ -113,22 +111,5 @@ export default {
     width: 100%;
     background-color: #222;
     min-height: 100vh;
-
-    // Scrollbar Modification
-      &::-webkit-scrollbar {
-        width: 10px;
-        height: 22px;
-      }
-
-      &::-webkit-scrollbar-thumb:hover {
-        background-color: grey;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background-color: #222;
-        border-radius: 20px;
-        border: 6px solid transparent;
-        background-clip: content-box;
-      }
   }
 </style>
