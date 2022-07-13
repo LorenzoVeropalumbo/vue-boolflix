@@ -14,7 +14,7 @@
       </div>
       <div>
         <span>voto: </span>
-        <span><i class="fa-solid fa-star star" v-for="n in getStars(Film.vote_average)" :key="n"></i></span>
+        <span><i class="fa-solid fa-star star-space" :class="{'star': n <= getStars(Film.vote_average)}" v-for="n in 5" :key="n"></i></span>
       </div>
       <div v-if="Film.overview !== '' ">
         <span>overview: </span>
@@ -55,15 +55,14 @@ export default {
       return `https://countryflagsapi.com/png/${nazionalita}`;
     },
     getImg(path){
+      
       if(path === null){
         return 'https://adriaticaindustriale.it/wp-content/uploads/2020/02/not-found.png'
       }
       return `https://image.tmdb.org/t/p/w342${path}`
     },
-    getStars(star){
-      
+    getStars(star){      
       const starcount = star/ 2;
-      console.log(starcount)
       return Math.round(starcount);
     }
   }
@@ -105,17 +104,20 @@ export default {
           }
 
           .overview-text{
-          font-weight: 100;
-          text-transform: lowercase;
-          font-size: 16px;
+            font-weight: 100;
+            text-transform: lowercase;
+            font-size: 16px;
           }
         }
         
       }
+
+      .star-space{
+        padding: 0 2px;
+      }
       
       .star{
-        color:yellow;
-        padding: 0 2px;
+        color:yellow;       
       }
 
       .flags{

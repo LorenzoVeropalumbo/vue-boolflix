@@ -14,7 +14,9 @@
       </div>
       <div>
         <span>voto: </span>
-        <span><i class="fa-solid fa-star star" v-for="n in getStars(Serie.vote_average)" :key="n"></i></span>
+        <span>
+          <i class="fa-solid fa-star star-space" :class="{'star': n <= getStars(Serie.vote_average)}" v-for="n in 5" :key="n"></i>
+        </span>
       </div>
       <div>
         <span>overview: </span>
@@ -63,7 +65,6 @@ export default {
     getStars(star){
       
       const starcount = star/ 2;
-      console.log(starcount)
       return Math.round(starcount);
     }
   }
@@ -110,6 +111,10 @@ export default {
           font-size: 16px;
           }
         }
+      }
+
+      .star-space{
+        padding: 0 2px;
       }
 
       .star{

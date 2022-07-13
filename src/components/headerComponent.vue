@@ -51,7 +51,7 @@ export default {
       
       h1{
         text-transform: uppercase;
-        font-size: 30px;
+        font-size: 40px;
         padding: 0 20px;
         color: red;  
         margin: 0;
@@ -64,13 +64,15 @@ export default {
 
         li{
           padding: 0 13px;
-          
+          font-size: 18px;
+
           &:hover{
-            font-weight: bolder;
+            font-weight: bold;
             cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
           }
-        }
-        
+        }      
       }
     }
     

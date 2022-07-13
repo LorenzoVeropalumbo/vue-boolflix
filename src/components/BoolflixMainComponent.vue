@@ -1,13 +1,13 @@
 <template>
   <div class="container-fluid">
-    <span>Film</span>
+    <span class="sectionTitle">Film</span>
     <div class="row row-cols-5 g-3 py-3">
       
       <div class="col" v-for="film in filmArray" :key="film.id">
         <FilmComponent :Film="film"/>
       </div>
     </div>
-    <span>Serie TV</span>
+    <span class="sectionTitle">Serie TV</span>
     <div class="row row-cols-5 g-3 py-3">
       <div class="col" v-for="serie in serieArray" :key="serie.id">
         <serieComponent :Serie="serie"/>
@@ -37,5 +37,9 @@
 
   .container-fluid{
     padding: 20px 25px;
+
+    .sectionTitle{
+      font-size: 30px;
+    }
   }
 </style>
