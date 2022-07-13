@@ -3,6 +3,7 @@
   <div class="film">
     <!-- Card Image -->
     <img class="film_poster" :src="getImg(Film.poster_path)" :alt="Film.title">
+    <div class="dd">sda</div>
     <!-- Hover effect on the card -->
     <div class="hoverEffect">
       <div>
@@ -140,8 +141,13 @@ export default {
       position: absolute;
       color: black;
       z-index: 50;
-      bottom: 0;
-      right: 0;
+      bottom: 3px;    
+      right: 3px;
+      background-color: white;
+      width: 100px;
+      height: 20px;
+      text-align: center;
+      line-height: 20px;
     }
 
     .hoverEffect{
