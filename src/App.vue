@@ -55,13 +55,13 @@ export default {
       if(this.textToSearch !== ""){
         axios.get(`https://api.themoviedb.org/3/search/movie?api_key=5815a78aa9854a6ec9c6ecbc2b07ad60&query=${this.textToSearch}&language=it-IT`)
         .then(response => {        
-          this.filmArray = response.data.results;
+          this.filmArray = response.data.results.splice(0,10);
         })
       } else {
         // altrimento stampo i risultati della ricarca
         axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=5815a78aa9854a6ec9c6ecbc2b07ad60&language=it-IT&page=1`)
-        .then(response => {       
-          this.filmArray = response.data.results;
+        .then(response => {      
+          this.filmArray = response.data.results.splice(0,10);
         })
       }     
     },
@@ -70,13 +70,13 @@ export default {
       if(this.textToSearch !== ""){
         axios.get(`https://api.themoviedb.org/3/search/tv?api_key=5815a78aa9854a6ec9c6ecbc2b07ad60&query=${this.textToSearch}&language=it-IT`)
         .then(response => {        
-          this.serieArray = response.data.results;
+          this.serieArray = response.data.results.splice(0,10);
         })
       } else {
         // altrimento stampo i risultati della ricarca
         axios.get(`https://api.themoviedb.org/3/tv/top_rated?api_key=5815a78aa9854a6ec9c6ecbc2b07ad60&language=it-IT&page=1`)
         .then(response => {       
-          this.serieArray = response.data.results;
+          this.serieArray = response.data.results.splice(0,10);
         })
       }     
     },
@@ -85,7 +85,7 @@ export default {
       axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=5815a78aa9854a6ec9c6ecbc2b07ad60`)
       .then(response => {        
         this.GenreFilmArray = response.data.genres;
-      })  
+      }) 
     },
     searchAllTvGenre(){
       // Scarico l' arrey dei generi delle serie tv
@@ -112,5 +112,23 @@ export default {
   #app{
     width: 100%;
     background-color: #222;
+    min-height: 100vh;
+
+    // Scrollbar Modification
+      &::-webkit-scrollbar {
+        width: 10px;
+        height: 22px;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background-color: grey;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: #222;
+        border-radius: 20px;
+        border: 6px solid transparent;
+        background-clip: content-box;
+      }
   }
 </style>

@@ -21,7 +21,7 @@
    
   </header>
 </template>
-
+  
 <script>
 export default {
   name: "headerComponent",

@@ -12,7 +12,7 @@
         <span>Titolo originale: </span>{{ Serie.original_name }}
       </div>
       <div>
-        <span>Cast: </span><span class="cast">{{ getCast(Serie.id) }}</span>
+        <span>Cast: </span><span class="cast">{{ this.namesCast }}</span>
       </div>
       <div>
         <img class="flags" :src="getFlags(Serie.original_language)" alt="dd">
@@ -49,6 +49,9 @@ export default {
       namesCast: "",
     }
   },
+  mounted(){
+    this.getCast(this.Serie);
+  },
   methods:{  
     //vedo quali flags non vengono rilevate e le sostituisco  
     getFlags(nazionalita){
@@ -69,8 +72,7 @@ export default {
         nazionalita = "ch";
       } else if(nazionalita == 'fa'){
         nazionalita = "af";
-      }
-
+      }  
       // poi ritorno la bandiera
       return `https://countryflagsapi.com/png/${nazionalita}`;
     },
@@ -89,8 +91,8 @@ export default {
       // poi lo arrotondo per eccesso
       return Math.round(starcount);
     },
-    getCast(textToSearch){  
-      const search = textToSearch;
+    getCast(textToSearch){
+      const search = textToSearch.id;
       // faccio una chiamata axios con search che varra come l'id del film
       axios.get(`https://api.themoviedb.org/3/movie/${search}/credits?api_key=5815a78aa9854a6ec9c6ecbc2b07ad60&language=en-US`)
       .then(response => {
@@ -112,6 +114,8 @@ export default {
         }
         //se la chiamata non va buon fine scrivo no cast e cancello la console          
       }).catch(() => {
+        
+        console.clear();
         this.namesCast = "no cast";
       })    
       return this.namesCast;         

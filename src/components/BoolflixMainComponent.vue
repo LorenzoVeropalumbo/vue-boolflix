@@ -48,6 +48,7 @@
   // section Style
   .container-fluid{
     padding-bottom: 80px;
+    height: 100%;
 
     .sectionTitle{
       font-size: 30px;

@@ -12,7 +12,7 @@
         <span>Titolo originale: </span>{{ Film.original_title }}
       </div>
       <div>
-        <span>Cast: </span><span class="cast">{{ getCast(Film.id) }}</span>
+        <span>Cast: </span><span class="cast">{{ this.namesCast }}</span>
       </div>
       <div>
         <img class="flags" :src="getFlags(Film.original_language)" alt="dd">
@@ -50,6 +50,9 @@ export default {
       GenreArray: [],
     }
   },
+  mounted(){
+    this.getCast(this.Film);
+  },
   methods:{  
     //vedo quali flags non vengono rilevate e le sostituisco 
     getFlags(nazionalita){
@@ -69,7 +72,6 @@ export default {
       } else if(nazionalita == 'fa'){
         nazionalita = "af";
       }
-      console.log("aa");
       // poi ritorno la bandiera
       return `https://countryflagsapi.com/png/${nazionalita}`;
     },
@@ -89,7 +91,7 @@ export default {
       return Math.round(starcount);
     },
      getCast(textToSearch){  
-      const search = textToSearch;
+      const search = textToSearch.id;
       // faccio una chiamata axios con search che varra come l'id del film
       axios.get(`https://api.themoviedb.org/3/movie/${search}/credits?api_key=5815a78aa9854a6ec9c6ecbc2b07ad60&language=en-US`)
       .then(response => {
@@ -111,6 +113,7 @@ export default {
         }
         //se la chiamata non va buon fine scrivo no cast e cancello la console 
       }).catch(() => {
+        console.clear();
         this.namesCast = "no cast";
       })    
       return this.namesCast;         
