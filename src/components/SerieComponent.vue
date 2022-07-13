@@ -1,6 +1,9 @@
 <template>
-  <div class="film">
+  <!-- Card -->
+  <div class="serie">
+    <!-- Card Image -->
     <img class="film_poster" :src="getImg(Serie.poster_path)" alt="">
+    <!-- Hover effect on the card -->
     <div class="hoverEffect">
       <div>
         <span>Titolo: </span>{{ Serie.name }}
@@ -17,9 +20,11 @@
       <div>
         <span>voto: </span>
         <span>
+          <!-- creo 5 stelline e le coloro in base al risultato della function -->
           <i class="fa-solid fa-star star-space" :class="{'star': n <= getStars(Serie.vote_average)}" v-for="n in 5" :key="n"></i>
         </span>
       </div>
+      <!-- controllo se il film non abbia descrizione -->
       <div v-if="Serie.overview !== '' ">
         <span>overview: </span>
         <div class="scroll">
@@ -44,7 +49,8 @@ export default {
       namesCast: "",
     }
   },
-  methods:{    
+  methods:{  
+    //vedo quali flags non vengono rilevate e le sostituisco  
     getFlags(nazionalita){
       
       if(nazionalita == 'en'){
@@ -64,39 +70,48 @@ export default {
       } else if(nazionalita == 'fa'){
         nazionalita = "af";
       }
+
+      // poi ritorno la bandiera
       return `https://countryflagsapi.com/png/${nazionalita}`;
     },
     getImg(path){
+      // controllo se l'img sia diversa da null
       if(path === null){
+        // se è uguale allora gli do una di default
         return 'https://adriaticaindustriale.it/wp-content/uploads/2020/02/not-found.png';
       }
+      // altrimenti la faccio stampare
       return `https://image.tmdb.org/t/p/w342${path}`;
     },
     getStars(star){
-      
+      // divido star che è un valore di 1 a 10 / 2
       const starcount = star/ 2;
+      // poi lo arrotondo per eccesso
       return Math.round(starcount);
     },
     getCast(textToSearch){  
       const search = textToSearch;
+      // faccio una chiamata axios con search che varra come l'id del film
       axios.get(`https://api.themoviedb.org/3/movie/${search}/credits?api_key=5815a78aa9854a6ec9c6ecbc2b07ad60&language=en-US`)
       .then(response => {
+        // assegno stringa vuota a namesCast 
         this.namesCast = "";
+        // se il cast è maggiore di 5 stampo solo i primi 5
         if(response.data.cast.length > 5){
           for (let i = 0; i < 5; i++) {
             this.namesCast += response.data.cast[i].name + ", ";      
-          } 
-        } else if(response.data.cast.length === 0) {         
-          
+          }
+          // altrimenti se il cast = 0 dico che non ci sta il cast
+        } else if(response.data.cast.length === 0){         
           this.namesCast = "no cast";
-
+          // altrimenti stampo tutto il cast
         } else {
           for (let i = 0; i < response.data.cast.length; i++) {
             this.namesCast += response.data.cast[i].name + ", ";      
           } 
-        }             
+        }
+        //se la chiamata non va buon fine scrivo no cast e cancello la console          
       }).catch(() => {
-        console.clear();
         this.namesCast = "no cast";
       })    
       return this.namesCast;         
@@ -106,7 +121,7 @@ export default {
 </script>
  
 <style lang="scss" scoped>
-.film{
+  .serie{
     height: 100%;
     position: relative;
     margin: 0 5px;

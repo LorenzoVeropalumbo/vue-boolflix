@@ -1,22 +1,29 @@
 <template>
+  <!-- Cards Container -->
   <div class="container-fluid">
+    <!-- Section Name -->
     <div class="sectionTitle">Film</div>
-    <div class="row row-cols-5 py-1 horizonal-scroll">
-      
+    <!-- Horizontal Scroller -->
+    <div class="row row-cols-5 py-1 horizonal-scroll">     
       <div class="col" v-for="film in filmArray" :key="film.id">
-        <FilmComponent :Film="film"/>
+        <FilmComponent :Film="film" :GenreSerieArray="GenreSerieArray"/>
       </div>
     </div>
+    <!-- Section Name -->
     <div class="sectionTitle">Serie TV</div>
+    <!-- Horizontal Scroller -->
     <div class="row row-cols-5 py-1 horizonal-scroll">
-      <div class="col" v-for="serie in serieArray" :key="serie.id">
-        <serieComponent :Serie="serie"/>
+      <div class="col" 
+      v-for="serie in serieArray" 
+      :key="serie.id">
+        <serieComponent :Serie="serie" :textToSearch="textToSearch"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+  // Import
   import serieComponent from './serieComponent.vue';
   import FilmComponent from './FilmComponent.vue';
   
@@ -30,12 +37,15 @@
       filmArray: Array,
       serieArray: Array,
       textToSearch: String,
+      GenreFilmArray: Array,
+      GenreSerieArray: Array,
     }
   }
 </script>
 
 <style lang="scss" scoped>
 
+  // section Style
   .container-fluid{
     padding-bottom: 80px;
 
@@ -45,14 +55,15 @@
       font-weight: 600;
     }
 
+    // setting horizontal scrolling
     .horizonal-scroll{
       height: calc(60% - 40px);
       flex-wrap: nowrap;
       overflow-x: auto;
       overflow-y: hidden;
-      margin: 0 10px;
       flex-shrink: 0;
       
+      // Scrollbar Modification
       &::-webkit-scrollbar {
         width: 10px;
         height: 22px;
@@ -67,10 +78,6 @@
         border-radius: 20px;
         border: 6px solid transparent;
         background-clip: content-box;
-      }
-      
-      .col{
-        padding: 0;
       }
     }
   }
