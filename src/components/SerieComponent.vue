@@ -4,12 +4,14 @@
     <div class="hoverEffect">
       <div>
         <span>Titolo: </span>{{ Serie.name }}
-      </div>
+      </div>     
       <div>
         <span>Titolo originale: </span>{{ Serie.original_name }}
       </div>
       <div>
-        <span>{{ Serie.original_language }}</span>
+        <span>Cast: </span><span class="cast">{{ getCast(Serie.id) }}</span>
+      </div>
+      <div>
         <img class="flags" :src="getFlags(Serie.original_language)" alt="dd">
       </div>
       <div>
@@ -18,7 +20,7 @@
           <i class="fa-solid fa-star star-space" :class="{'star': n <= getStars(Serie.vote_average)}" v-for="n in 5" :key="n"></i>
         </span>
       </div>
-      <div>
+      <div v-if="Serie.overview !== '' ">
         <span>overview: </span>
         <div class="scroll">
           <span class="overview-text">{{ Serie.overview }}</span>
@@ -29,10 +31,18 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "serieComponent",
   props:{
    Serie:Object,
+  },
+  data(){
+    return{
+      castArray: [],
+      namesCast: "",
+    }
   },
   methods:{    
     getFlags(nazionalita){
@@ -58,14 +68,38 @@ export default {
     },
     getImg(path){
       if(path === null){
-        return 'https://adriaticaindustriale.it/wp-content/uploads/2020/02/not-found.png'
+        return 'https://adriaticaindustriale.it/wp-content/uploads/2020/02/not-found.png';
       }
-      return `https://image.tmdb.org/t/p/w342${path}`
+      return `https://image.tmdb.org/t/p/w342${path}`;
     },
     getStars(star){
       
       const starcount = star/ 2;
       return Math.round(starcount);
+    },
+    getCast(textToSearch){  
+      const search = textToSearch;
+      axios.get(`https://api.themoviedb.org/3/movie/${search}/credits?api_key=5815a78aa9854a6ec9c6ecbc2b07ad60&language=en-US`)
+      .then(response => {
+        this.namesCast = "";
+        if(response.data.cast.length > 5){
+          for (let i = 0; i < 5; i++) {
+            this.namesCast += response.data.cast[i].name + ", ";      
+          } 
+        } else if(response.data.cast.length === 0) {         
+          
+          this.namesCast = "no cast";
+
+        } else {
+          for (let i = 0; i < response.data.cast.length; i++) {
+            this.namesCast += response.data.cast[i].name + ", ";      
+          } 
+        }             
+      }).catch(() => {
+        console.clear();
+        this.namesCast = "no cast";
+      })    
+      return this.namesCast;         
     }
   }
 }
@@ -73,10 +107,10 @@ export default {
  
 <style lang="scss" scoped>
 .film{
-    border: 1px solid white;
     height: 100%;
     position: relative;
-    overflow: hidden;
+    margin: 0 5px;
+    cursor: pointer;
 
     .hoverEffect{
       position: absolute;
@@ -85,15 +119,20 @@ export default {
       bottom: 0;
       right: 0;
       opacity: 0;
-      padding: 5px;
-      
-    
+      padding: 5px 10px;
+  
       div{
         text-transform: uppercase;
         padding: 8px 0 5px;
 
         span{
           font-weight: 800;
+
+          &.cast{
+            font-weight: 100;
+            text-transform: capitalize;
+            font-size: 16px;
+          }
         }
         
         .scroll{
@@ -106,9 +145,9 @@ export default {
           }
 
           .overview-text{
-          font-weight: 100;
-          text-transform: lowercase;
-          font-size: 16px;
+            font-weight: 100;
+            text-transform: lowercase;
+            font-size: 16px;
           }
         }
       }
@@ -125,7 +164,7 @@ export default {
         width: 30px;
         height: 20px;
         display: inline;
-        margin: 0 5px;
+        margin: 5px 0;
       }
     }
     

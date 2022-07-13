@@ -33,7 +33,7 @@ export default {
         this.$emit("sendText", this.searchText);
         this.searchText = "";
       }           
-    }
+    },
   }
 }
 </script>

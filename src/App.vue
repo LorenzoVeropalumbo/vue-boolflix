@@ -5,16 +5,16 @@
     />
 
     <main>
-      <BoolflixComponent :filmArray="this.filmArray" :serieArray="this.serieArray"/>
+      <BoolflixComponent :filmArray="this.filmArray" :serieArray="this.serieArray" :textToSearch="this.textToSearch"/>
     </main>
 
   </div>
 </template>
 
 <script>
-import headerComponent from './components/headerComponent.vue'
-import BoolflixComponent from './components/BoolflixMainComponent.vue'
-import axios from "axios"
+import headerComponent from './components/headerComponent.vue';
+import BoolflixComponent from './components/BoolflixMainComponent.vue';
+import axios from "axios";
 
 export default {
   name: 'App',

@@ -9,7 +9,9 @@
         <span>Titolo originale: </span>{{ Film.original_title }}
       </div>
       <div>
-        <span>{{ Film.original_language }}: </span>
+        <span>Cast: </span><span class="cast">{{ getCast(Film.id) }}</span>
+      </div>
+      <div>
         <img class="flags" :src="getFlags(Film.original_language)" alt="dd">
       </div>
       <div>
@@ -28,11 +30,18 @@
 </template>
 
 <script>
+import axios from "axios";
 
 export default {
   name: "FilmComponent",
   props:{
     Film:Object,
+  },
+  data(){
+    return{
+      castArray: [],
+      namesCast: "",
+    }
   },
   methods:{    
     getFlags(nazionalita){
@@ -64,18 +73,42 @@ export default {
     getStars(star){      
       const starcount = star/ 2;
       return Math.round(starcount);
+    },
+     getCast(textToSearch){  
+      const search = textToSearch;
+      axios.get(`https://api.themoviedb.org/3/movie/${search}/credits?api_key=5815a78aa9854a6ec9c6ecbc2b07ad60&language=en-US`)
+      .then(response => {
+        this.namesCast = "";
+        if(response.data.cast.length > 5){
+          for (let i = 0; i < 5; i++) {
+            this.namesCast += response.data.cast[i].name + ", ";      
+          } 
+        } else if(response.data.cast.length === 0) {         
+          
+          this.namesCast = "no cast";
+
+        } else {
+          for (let i = 0; i < response.data.cast.length; i++) {
+            this.namesCast += response.data.cast[i].name + ", ";      
+          } 
+        }             
+      }).catch(() => {
+        console.clear();
+        this.namesCast = "no cast";
+      })    
+      return this.namesCast;         
     }
   }
 }
 </script>
  
 <style lang="scss" scoped>
-  .film{
-    
-    border: 1px solid white;
+  .film{   
     height: 100%;
     position: relative;
     overflow: hidden;
+    margin: 0 5px;
+    cursor: pointer;
 
     .hoverEffect{
       position: absolute;
@@ -84,7 +117,8 @@ export default {
       bottom: 0;
       right: 0;
       opacity: 0;
-      padding: 5px;
+      padding: 5px 10px;
+
       
       div{
         text-transform: uppercase;
@@ -92,13 +126,19 @@ export default {
 
         span{
           font-weight: 800;
+
+          &.cast{
+            font-weight: 100;
+            text-transform: capitalize;
+            font-size: 16px;
+          }
         }
       
         .scroll{
           height: 200px;
           width: 100%;  
           overflow-y: auto;
-     
+
           &::-webkit-scrollbar {
             display: none;
           }
