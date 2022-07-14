@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- Header Component -->
-    <headerComponent 
+    <HeaderComponent 
     @sendText="searchText"
     :GenreFilmArray="this.GenreFilmArray"
     :GenreSerieArray="this.GenreSerieArray"
@@ -22,7 +22,7 @@
 
 <script>
 // IMPORT
-import headerComponent from './components/HeaderComponent.vue';
+import HeaderComponent from './components/HeaderComponent.vue';
 import BoolflixComponent from './components/BoolflixMainComponent.vue';
 import axios from "axios";
 
@@ -38,7 +38,7 @@ export default {
     }
   },
   components: {
-    headerComponent,
+    HeaderComponent,
     BoolflixComponent,
   },
   mounted(){

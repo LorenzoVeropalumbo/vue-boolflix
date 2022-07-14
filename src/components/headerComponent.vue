@@ -15,11 +15,8 @@
     </div>
     <!-- Crezione dell side di ricerca -->
     <div class="inputs">
-      <select name="" id="">
-        <option value="serieTV">serieTV</option>
-      </select> 
-      <select name="" id="">
-        <option value="d">ss</option>
+      <select name="" id="" >
+        <option v-for="(Genre,index) in getAllGenre(this.GenreSerieArray,this.GenreFilmArray)" :key="index" value="Genre.id">{{ Genre.name }}</option>
       </select> 
       <input type="text" placeholder="cerca" v-model="searchText">
       <button @click.prevent="sendSearchText()">submit</button>
@@ -31,7 +28,11 @@
   
 <script>
 export default {
-  name: "headerComponent",
+  name: "HeaderComponent",
+  props:{
+    GenreSerieArray:Array,
+    GenreFilmArray: Array,
+  },
   data(){
     return{
       searchText: '',
@@ -46,6 +47,19 @@ export default {
         this.searchText = "";
       }           
     },
+    getAllGenre(GenreSerieArray,GenreFilmArray){
+      const ArrayToFilter = [];
+      GenreSerieArray.forEach(element => {
+        ArrayToFilter.push(element);
+      });
+      GenreFilmArray.forEach(element => {
+        ArrayToFilter.push(element);
+      });
+      
+      console.log(...new Set(ArrayToFilter))
+
+      return [...new Set(ArrayToFilter)]
+    }
   }
 }
 </script>
