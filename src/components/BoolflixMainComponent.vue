@@ -51,9 +51,10 @@
     height: 100%;
 
     .sectionTitle{
-      font-size: 30px;
+      font-size: 25px;
       margin: 10px 15px;
       font-weight: 600;
+      text-transform: uppercase;
     }
 
     .col{

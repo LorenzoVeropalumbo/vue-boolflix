@@ -14,10 +14,17 @@
       </ul>
     </div>
     <!-- Crezione dell side di ricerca -->
-    <div class="inputs"> 
+    <div class="inputs">
+      <select name="" id="">
+        <option value="serieTV">serieTV</option>
+      </select> 
+      <select name="" id="">
+        <option value="d">ss</option>
+      </select> 
       <input type="text" placeholder="cerca" v-model="searchText">
       <button @click.prevent="sendSearchText()">submit</button>
     </div>
+   
    
   </header>
 </template>

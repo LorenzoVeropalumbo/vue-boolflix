@@ -3,6 +3,8 @@
     <!-- Header Component -->
     <headerComponent 
     @sendText="searchText"
+    :GenreFilmArray="this.GenreFilmArray"
+    :GenreSerieArray="this.GenreSerieArray"
     />
     <!-- Main -->
     <main>
@@ -20,7 +22,7 @@
 
 <script>
 // IMPORT
-import headerComponent from './components/headerComponent.vue';
+import headerComponent from './components/HeaderComponent.vue';
 import BoolflixComponent from './components/BoolflixMainComponent.vue';
 import axios from "axios";
 
