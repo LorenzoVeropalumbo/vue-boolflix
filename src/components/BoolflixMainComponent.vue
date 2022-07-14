@@ -16,7 +16,7 @@
       <div class="col" 
       v-for="serie in serieArray" 
       :key="serie.id">
-        <serieComponent :Serie="serie" :GenreSerieArray="GenreSerieArray"/>
+        <FilmComponent :Film="serie" :GenreFilmArray="GenreSerieArray"/>
       </div>
     </div>
   </div>
@@ -24,14 +24,14 @@
 
 <script>
   // Import
-  import serieComponent from './serieComponent.vue';
+  // import serieComponent from './serieComponent.vue';
   import FilmComponent from './FilmComponent.vue';
   
   export default {
     name: "BoolflixComponent",
     components: {
       FilmComponent,
-      serieComponent,
+      // serieComponent,
     },
     props:{
       filmArray: Array,
@@ -65,12 +65,12 @@
       height: calc(60% - 40px);
       flex-wrap: nowrap;
       overflow: auto;
-      flex-shrink: 0;
+      margin: 2px;
       
       // Scrollbar Modification
       &::-webkit-scrollbar {
         width: 10px;
-        height: 12px;
+        height: 8px;
       }
 
       &::-webkit-scrollbar-thumb:hover {
@@ -78,7 +78,7 @@
       }
 
       &::-webkit-scrollbar-thumb {
-        background-color: #222;
+        background-color: #333;
         border-radius: 20px;
         border: 6px solid transparent;
       }

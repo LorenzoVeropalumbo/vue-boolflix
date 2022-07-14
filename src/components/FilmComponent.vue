@@ -4,16 +4,16 @@
     <!-- Card Image -->
     <img class="film_poster" :src="getImg(Film.poster_path)" :alt="Film.title">
     <div class="wrapper">
-      <div class="dd" v-for="(singlefilm,index) in Film.genre_ids" :key="index">{{ getGenre(singlefilm) }}</div>
+      <div class="genre-side" v-for="(singlefilm,index) in Film.genre_ids" :key="index">{{ getGenre(singlefilm) }}</div>
     </div>
     
     <!-- Hover effect on the card -->
     <div class="hoverEffect">
       <div>
-        <span>Titolo: </span>{{ Film.title }}
+        <span>Titolo: </span>{{ Film.title ? Film.title : Film.name }}
       </div>
       <div>
-        <span>Titolo originale: </span>{{ Film.original_title }}
+        <span>Titolo originale: </span>{{ Film.original_title ? Film.original_title : Film.original_name }}
       </div>
       <div>
         <span>Cast: </span><span class="cast">{{ this.namesCast }}</span>
@@ -51,7 +51,6 @@ export default {
     return{
       castArray: [],
       namesCast: "",
-      genreArray: '',
     }
   },
   mounted(){
@@ -90,9 +89,9 @@ export default {
     },
     getStars(star){    
       // divido star che è un valore di 1 a 10 / 2
-      const starcount = star/ 2;
+      const starcount = Math.round(star)
       // poi lo arrotondo per eccesso
-      return Math.round(starcount);
+      return starcount / 2;
     },
      getCast(textToSearch){  
       const search = textToSearch.id;
@@ -117,20 +116,21 @@ export default {
         }
         //se la chiamata non va buon fine scrivo no cast e cancello la console 
       }).catch(() => {
-        console.clear();
+        
         this.namesCast = "no cast";
       })    
       return this.namesCast;         
     },
     getGenre(Film){ 
       
+      let genre = 0;
       for (let index = 0; index < this.GenreFilmArray.length; index++) {
         if(this.GenreFilmArray[index].id === Film){
-          this.genreArray = this.GenreFilmArray[index].name;
+          genre = this.GenreFilmArray[index].name;
         }    
       }
-      console.clear();
-      return this.genreArray;
+      
+      return genre;
     }
   }
 }
@@ -227,7 +227,7 @@ export default {
       width: 100%;
       margin-bottom: 5px;
 
-      .dd{
+      .genre-side{
         margin: 2px 2px;
         padding: 5px;
         background-color: white;
