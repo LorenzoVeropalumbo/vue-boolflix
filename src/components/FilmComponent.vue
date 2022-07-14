@@ -117,7 +117,7 @@ export default {
         //se la chiamata non va buon fine scrivo no cast e cancello la console 
       }).catch(() => {
         
-        this.namesCast = "no cast";
+        this.namesCast = "no cast found";
       })    
       return this.namesCast;         
     },
@@ -138,8 +138,8 @@ export default {
  
 <style lang="scss" scoped>
   .film{   
-    height: 500px;
-    width: 340px;
+    height: 600px;
+    width: 400px;
     overflow: hidden;
     /* margin: 0 5px; */
     cursor: pointer;
@@ -231,7 +231,7 @@ export default {
         margin: 2px 2px;
         padding: 5px;
         background-color: white;
-        box-shadow: 5px 10px 8px #888888;
+        box-shadow: 5px 10px 8px #666;
       }
     }
 

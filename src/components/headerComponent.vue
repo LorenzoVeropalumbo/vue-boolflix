@@ -15,8 +15,9 @@
     </div>
     <!-- Crezione dell side di ricerca -->
     <div class="inputs">
-      <select name="" id="" >
-        <option v-for="(Genre,index) in getAllGenre(this.GenreSerieArray,this.GenreFilmArray)" :key="index" value="Genre.id">{{ Genre.name }}</option>
+      <select @change="onChange($event)" name="select" id="select" >
+        <option selected="selected" value="All">All</option>
+        <option v-for="(Genre,index) in getAllGenre(this.GenreSerieArray,this.GenreFilmArray)" :key="index" :value="Genre.id">{{ Genre.name }}</option>
       </select> 
       <input type="text" placeholder="cerca" v-model="searchText">
       <button @click.prevent="sendSearchText()">submit</button>
@@ -30,7 +31,7 @@
 export default {
   name: "HeaderComponent",
   props:{
-    GenreSerieArray:Array,
+    GenreSerieArray: Array,
     GenreFilmArray: Array,
   },
   data(){
@@ -48,17 +49,30 @@ export default {
       }           
     },
     getAllGenre(GenreSerieArray,GenreFilmArray){
-      const ArrayToFilter = [];
+      let ArrayToFilter = [];
+      let ArrayToFilters = [];
+
       GenreSerieArray.forEach(element => {
-        ArrayToFilter.push(element);
+        if(!ArrayToFilters.includes(element.name)){
+          ArrayToFilter.push(element);
+          ArrayToFilters.push(element.name);
+        }       
       });
+
       GenreFilmArray.forEach(element => {
-        ArrayToFilter.push(element);
+        if(!ArrayToFilters.includes(element.name)){
+          ArrayToFilter.push(element);
+          ArrayToFilters.push(element.name);
+        }   
       });
       
-      console.log(...new Set(ArrayToFilter))
+      return ArrayToFilter;
 
-      return [...new Set(ArrayToFilter)]
+    },
+    onChange(value){  
+      const GenreValue = value.target.value;
+      console.log(GenreValue)
+      this.$emit("sendValue", GenreValue);
     }
   }
 }
@@ -74,7 +88,7 @@ export default {
     align-items: center;
     
     div{
-      margin-left: 10px;  
+      margin-left: 20px;  
       display: flex;
       
       img{
@@ -85,16 +99,15 @@ export default {
         display: flex;
         list-style-type: none;
         align-items: center;
+        padding: 10px;
 
         li{
           padding: 0 13px;
           font-size: 18px;
 
           &:hover{
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
+            transform: scale(1.05);
+            cursor: pointer;      
           }
         }      
       }

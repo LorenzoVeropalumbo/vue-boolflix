@@ -2,7 +2,7 @@
   <!-- Cards Container -->
   <div class="container-fluid">
     <!-- Section Name -->
-    <div class="sectionTitle">Film più votati su Boolflix</div>
+    <div v-if="filmArray.length > 0" class="sectionTitle">Film più votati su Boolflix</div>
     <!-- Horizontal Scroller -->
     <div class="row py-1 horizonal-scroll">     
       <div class="col" v-for="film in filmArray" :key="film.id">
@@ -10,7 +10,7 @@
       </div>
     </div>
     <!-- Section Name -->
-    <div class="sectionTitle">Serie TV più votate su Boolflix</div>
+    <div v-if="serieArray.length > 0" class="sectionTitle">Serie TV più votate su Boolflix</div>
     <!-- Horizontal Scroller -->
     <div class="row py-1 horizonal-scroll">
       <div class="col" 
